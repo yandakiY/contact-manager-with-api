@@ -1,14 +1,14 @@
 import { DeleteFilled , EditFilled } from '@ant-design/icons'
 import React from 'react'
 
-const ContactRow = () => {
+const ContactRow = ({contact}) => {
   return (
     <div className='border border-black p-2 mb-2 rounded flex flex-row justify-between items-center'>
         {/* Contact Row */}
         {/* infos part */}
         <div>
-            <div>Name</div>
-            <div className='text-base'>Telephone <i className="bi bi-trash"></i></div>
+            <div>{contact.name}</div>
+            <div className='text-base'>{contact.telephone} <i className="bi bi-trash"></i></div>
         </div>
 
         {/* Button part */}

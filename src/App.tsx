@@ -4,11 +4,12 @@
 import './App.css'
 import Layout from './components/Layout'
 import { useForm } from "react-hook-form"
-import react , {useEffect} from "react"
-
+import react , {useEffect , useState} from "react"
+import axios  from 'axios'
+// import myApi from "./api"
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [contacts, setContacts] = useState([])
 
 
   const submitData = (data: unknown , e:unknown) => {
@@ -19,13 +20,20 @@ function App() {
       const newContact = {...dataSended , visible:true}
       console.log(newContact)
 
+      setContacts([...contacts , newContact])
+      axios.post("http://127.0.0.1:8000/api/save_contact/" , newContact);
       
   }
 
   useEffect(() => {
     fetch('http://127.0.0.1:8000/api/contacts/')
       .then(data => data.json())
-      .then(d => console.log("data" , d))
+      .then(d => 
+        {
+          console.log("data" , d)
+          setContacts(d)
+        }
+      )
       .catch(err => console.error(err))
   } , [])
   
@@ -33,7 +41,7 @@ function App() {
   return (
     <div className='flex flex-col items-center justify-center h-screen overflow-y-hidden'>
       {/* App.tsx */}
-      <Layout submitData={submitData} />
+      <Layout contacts={contacts} submitData={submitData} />
     </div>
   )
 }
