@@ -8,6 +8,8 @@ import react , {useEffect , useState} from "react"
 import axios  from 'axios'
 // import myApi from "./api"
 
+
+
 function App() {
   const [contacts, setContacts] = useState([])
 
@@ -23,6 +25,30 @@ function App() {
       setContacts([...contacts , newContact])
       axios.post("http://127.0.0.1:8000/api/save_contact/" , newContact);
       
+  }
+
+  const updateSubmitData = (data , e) => {
+
+    e.preventDefault()
+    // change set Contacts
+    setContacts(contacts.map(contact => contact.id == data.id ? data : contact))
+
+    axios.put(`http://127.0.0.1:8000/api/contact/update_contact/${data.id}` , data)
+    console.log("Update",data)
+
+  }
+
+  const deleteContact = (data: string) => {
+
+    console.log("Delete" ,data)
+    // e.preventDefault()
+    // filter contact with the same id
+    setContacts(contacts.filter(contact => contact.id != data))
+
+    axios.delete(`http://127.0.0.1:8000/api/contact/delete/${data}`)
+      .then(() => console.log("Delete ok"))
+      .catch(err => console.error(err))
+
   }
 
   useEffect(() => {
@@ -41,7 +67,7 @@ function App() {
   return (
     <div className='flex flex-col items-center justify-center h-screen overflow-y-hidden'>
       {/* App.tsx */}
-      <Layout contacts={contacts} submitData={submitData} />
+      <Layout contacts={contacts} submitData={submitData} updateData={updateSubmitData} deleteContact={deleteContact} />
     </div>
   )
 }
