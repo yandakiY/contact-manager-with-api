@@ -62,12 +62,12 @@ const ContactRow = ({contact , updateData , deleteContact}) => {
                 {/* Button part */}
                 <div className='flex flex-row gap-6'>
                     <div>
-                        <a href="#" onClick={handleOpen}>
+                        <a onClick={handleOpen}>
                             <EditFilled />
                         </a>
                     </div>
                     <div>
-                        <a href="#" onClick={() => handleDelete(contact.id)}>
+                        <a onClick={() => handleDelete(contact.id)}>
                             <DeleteFilled className='text-red-700' />
                         </a>
                     </div>

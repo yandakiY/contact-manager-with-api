@@ -13,7 +13,7 @@ const ListContact = ({contacts , updateData , deleteContact}) => {
             </>
             :
             <div className='text-red-800 flex flex-row justify-center mt-4 font-bold'>
-                Connection refused
+                No contact finded
             </div>
         }
         
